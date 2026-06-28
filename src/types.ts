@@ -27,6 +27,8 @@ export interface ImageSettings {
   borderWidth: number; // 0 - 50 px
 }
 
+export type TabType = 'adjust' | 'filter' | 'text' | 'draw' | 'stickers' | 'ai' | 'meta-ai' | null;
+
 export interface Point {
   x: number;
   y: number;

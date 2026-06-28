@@ -19,7 +19,9 @@ import DashboardModal from './components/DashboardModal';
 import logoImg from './assets/logo.png';
 import { useAuth } from './contexts/AuthContext';
 import { removeImageBackground } from './utils/aiFeatures';
+import { generateMetaImage, applyMetaSAM } from './utils/metaAiFeatures';
 
+// @ts-ignore - import worker as a URL
 const DEFAULT_SETTINGS: ImageSettings = {
   brightness: 100,
   contrast: 100,
@@ -125,6 +127,8 @@ export default function App() {
 
   // AI States
   const [isAiProcessing, setIsAiProcessing] = useState(false);
+  const [isMetaGenerating, setIsMetaGenerating] = useState(false);
+  const [metaPrompt, setMetaPrompt] = useState('');
 
   // Main States
   const [hasStarted, setHasStarted] = useState(false);
@@ -790,15 +794,35 @@ export default function App() {
 
           {/* Tool Icons */}
           <nav className="flex flex-col gap-2.5">
+            <button
+              onClick={() => setActiveTab('ai')}
+              className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all group relative ${
+                activeTab === 'ai' ? 'bg-violet-600 text-white shadow-lg shadow-violet-500/30 scale-110 z-10' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Sparkles className="h-5 w-5" />
+              <span className="text-[9px] font-semibold opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity whitespace-nowrap">AI Magic</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('meta-ai')}
+              className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all group relative ${
+                activeTab === 'meta-ai' ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 scale-110 z-10' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Wand2 className="h-5 w-5" />
+              <span className="text-[9px] font-semibold opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity whitespace-nowrap">Meta Gen</span>
+            </button>
+
+            <div className="w-8 h-[1px] bg-slate-800 my-1 rounded-full"></div>
             {[
               { id: 'templates', icon: LayoutTemplate, label: 'Templates' },
               { id: 'adjust', icon: Sliders, label: 'Adjust' },
               { id: 'filter', icon: Sparkles, label: 'Filters' },
-              { id: 'ai', icon: Sparkles, label: 'AI Magic', isPremium: true },
               { id: 'crop', icon: Crop, label: 'Crop & Transform' },
               { id: 'draw', icon: Paintbrush, label: 'Draw / Paint' },
               { id: 'text', icon: Type, label: 'Add Text' },
-              { id: 'sticker', icon: Smile, label: 'Stickers' },
+              { id: 'stickers', icon: Smile, label: 'Stickers' },
               { id: 'frame', icon: Frame, label: 'Frames' },
               { id: 'history', icon: History, label: 'Timeline' },
             ].map((tool) => {
@@ -854,8 +878,9 @@ export default function App() {
             {activeTab === 'crop' && <Crop className="h-4.5 w-4.5 text-violet-500" />}
             {activeTab === 'draw' && <Paintbrush className="h-4.5 w-4.5 text-violet-500" />}
             {activeTab === 'text' && <Type className="h-4.5 w-4.5 text-violet-500" />}
-            {activeTab === 'sticker' && <Smile className="h-4.5 w-4.5 text-violet-500" />}
-            {activeTab === 'border' && <Frame className="h-4.5 w-4.5 text-violet-500" />}
+            {activeTab === 'stickers' && <Smile className="h-5 w-5" />}
+            {activeTab === 'ai' && <Sparkles className="h-5 w-5" />}
+            {activeTab === 'meta-ai' && <Wand2 className="h-5 w-5" />}
             {activeTab === 'history' && <History className="h-4.5 w-4.5 text-violet-500" />}
             {activeTab}
           </h2>
@@ -1237,6 +1262,41 @@ export default function App() {
                         setShowProModal(true);
                         return;
                       }
+                      if (!originalImage || !imageSrc) return;
+                      try {
+                        setIsAiProcessing(true);
+                        const newSrc = await applyMetaSAM(imageSrc);
+                        
+                        const img = new Image();
+                        img.onload = () => {
+                          setOriginalImage(img);
+                          setOriginalDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+                          setTimeout(() => {
+                            commitState('Meta SAM Selection', settings, drawings, texts, stickers, newSrc);
+                          }, 0);
+                          setIsAiProcessing(false);
+                        };
+                        img.src = newSrc;
+                        setImageSrc(newSrc);
+                      } catch (err) {
+                        console.error(err);
+                        alert('Failed to process with Meta SAM.');
+                        setIsAiProcessing(false);
+                      }
+                    }}
+                    disabled={isAiProcessing || isAiUpscaling}
+                    className="w-full relative group overflow-hidden py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 border border-blue-400/30 rounded-xl transition-all flex flex-col items-center justify-center gap-1 shadow-lg shadow-blue-900/20"
+                  >
+                    {isAiProcessing ? <RefreshCw className="h-4 w-4 text-white animate-spin" /> : <Wand2 className="h-4 w-4 text-white" />}
+                    <span className="text-[10px] font-bold text-white relative z-10">Meta SAM (Pro)</span>
+                  </button>
+
+                  <button
+                    onClick={async () => {
+                      if (!isPro) {
+                        setShowProModal(true);
+                        return;
+                      }
                       if (!originalImage || !canvasRef.current) return;
                       try {
                         setIsAiProcessing(true);
@@ -1364,6 +1424,48 @@ export default function App() {
                       {!isPro && <span className="text-[9px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded border border-amber-500/30 uppercase tracking-widest relative z-10">PRO</span>}
                     </>
                   )}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2.6: META AI GEN */}
+          {activeTab === 'meta-ai' && (
+            <div className="space-y-4">
+              <div className="p-4 bg-gradient-to-br from-blue-900/40 to-indigo-900/40 rounded-xl border border-blue-500/30">
+                <h3 className="text-sm font-bold text-white mb-2">Text-to-Image Generation</h3>
+                <textarea
+                  value={metaPrompt}
+                  onChange={(e) => setMetaPrompt(e.target.value)}
+                  placeholder="Describe the image you want to generate..."
+                  className="w-full h-24 bg-slate-950 border border-blue-500/30 rounded-xl p-3 text-xs text-slate-200 resize-none"
+                />
+                <button
+                  onClick={async () => {
+                    if (!metaPrompt.trim()) return;
+                    if (!isPro) { setShowProModal(true); return; }
+                    setIsMetaGenerating(true);
+                    try {
+                      const newSrc = await generateMetaImage(metaPrompt);
+                      const img = new Image();
+                      img.onload = () => {
+                        setOriginalImage(img);
+                        setOriginalDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+                        setImageSrc(newSrc);
+                        commitState('Meta AI Gen', settings, [], [], []);
+                        setIsMetaGenerating(false);
+                      };
+                      img.src = newSrc;
+                    } catch (err) {
+                      console.error(err);
+                      alert('Generation failed.');
+                      setIsMetaGenerating(false);
+                    }
+                  }}
+                  disabled={isMetaGenerating}
+                  className="w-full mt-3 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2"
+                >
+                  {isMetaGenerating ? <RefreshCw className="animate-spin h-4 w-4" /> : 'Generate'}
                 </button>
               </div>
             </div>
@@ -1767,7 +1869,7 @@ export default function App() {
           )}
 
           {/* TAB 6: STICKERS */}
-          {activeTab === 'sticker' && (
+          {activeTab === 'stickers' && (
             <div className="space-y-4">
               <p className="text-xs text-slate-400 mb-1">Click a sticker or emoji to stamp it onto your artwork:</p>
               
