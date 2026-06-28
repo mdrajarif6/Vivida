@@ -1,2 +1,8 @@
 {
+    "name": "resizzy/backend",
+    "description": "Backend API for Resizzy",
+    "type": "project",
+    "require": {
+        "aws/aws-sdk-php": "^3.280"
+    }
 }
