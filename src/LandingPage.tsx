@@ -209,9 +209,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               <p className="text-sm text-slate-400 mb-8 flex-grow">
                 With Photoshop APIs and SDKs, build plugins and integrations that harness the power of the world's best image editing software to transform creative workflows.
               </p>
-              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-blue-500/50">
+              <a href="https://developer.adobe.com/photoshop/" target="_blank" rel="noopener noreferrer" className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-blue-500/50">
                 Learn more
-              </button>
+              </a>
             </div>
 
             {/* Card 2: InDesign */}
@@ -223,9 +223,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               <p className="text-sm text-slate-400 mb-8 flex-grow">
                 Give your InDesign users the power to streamline their editorial and publishing workflows.
               </p>
-              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-pink-500/50">
+              <a href="https://developer.adobe.com/indesign/" target="_blank" rel="noopener noreferrer" className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-pink-500/50">
                 Learn more
-              </button>
+              </a>
             </div>
 
             {/* Card 3: Premiere Pro */}
@@ -237,9 +237,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               <p className="text-sm text-slate-400 mb-8 flex-grow">
                 Automate complex tasks, communicate with external hardware, add support for new codecs, and more.
               </p>
-              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-purple-500/50">
+              <a href="https://developer.adobe.com/premiere-pro/" target="_blank" rel="noopener noreferrer" className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-purple-500/50">
                 Learn more
-              </button>
+              </a>
             </div>
 
             {/* Card 4: Lightroom Services */}
@@ -251,9 +251,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               <p className="text-sm text-slate-400 mb-8 flex-grow">
                 Streamline photography workflows for customers with content in Lightroom, through RESTful APIs.
               </p>
-              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-cyan-500/50">
+              <a href="https://developer.adobe.com/lightroom/" target="_blank" rel="noopener noreferrer" className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-cyan-500/50">
                 Learn more
-              </button>
+              </a>
             </div>
 
             {/* Card 5: Lightroom Classic */}
@@ -265,9 +265,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               <p className="text-sm text-slate-400 mb-8 flex-grow">
                 Create effects, define presets and brushes, manipulate metadata, and much more in Lightroom.
               </p>
-              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-cyan-500/50">
+              <a href="https://developer.adobe.com/lightroom-classic/" target="_blank" rel="noopener noreferrer" className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-cyan-500/50">
                 Learn more
-              </button>
+              </a>
             </div>
 
             {/* Card 6: After Effects */}
@@ -279,9 +279,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               <p className="text-sm text-slate-400 mb-8 flex-grow">
                 Create stunning visual effects, manipulate project elements, and automate complex tasks in After Effects.
               </p>
-              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-indigo-500/50">
+              <a href="https://developer.adobe.com/after-effects/" target="_blank" rel="noopener noreferrer" className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-indigo-500/50">
                 Learn more
-              </button>
+              </a>
             </div>
           </div>
         </div>
