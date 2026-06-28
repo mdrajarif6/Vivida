@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '../lib/utils';
-import { Image as ImageIcon, Menu, X } from 'lucide-react';
+import { Sparkles, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 interface NavbarProps {
@@ -15,10 +15,10 @@ export const Navbar = ({ onStart }: NavbarProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center gap-2">
-            <div className="bg-indigo-600 p-1.5 rounded-lg">
-              <ImageIcon className="w-6 h-6 text-white" />
+            <div className="bg-gradient-to-tr from-violet-600 to-fuchsia-500 p-1.5 rounded-lg shadow-lg shadow-violet-500/30">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-white tracking-tight">PixelPerfect</span>
+            <span className="text-xl font-bold text-white tracking-tight">resizzy</span>
           </div>
           
           <div className="hidden md:flex items-center gap-8">

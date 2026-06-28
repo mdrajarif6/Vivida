@@ -1,4 +1,4 @@
-import { Image as ImageIcon, Share2, MessageCircle, Globe, Link as LinkIcon } from 'lucide-react';
+import { Sparkles, Twitter, Github, Linkedin } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -7,10 +7,10 @@ export const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-6">
-              <div className="bg-indigo-600 p-1.5 rounded-lg">
-                <ImageIcon className="w-6 h-6 text-white" />
+              <div className="bg-gradient-to-tr from-violet-600 to-fuchsia-500 p-1.5 rounded-lg shadow-lg shadow-violet-500/30">
+                <Sparkles className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-bold text-white tracking-tight">PixelPerfect</span>
+              <span className="text-xl font-bold text-white tracking-tight">resizzy</span>
             </div>
             <p className="text-zinc-400 text-sm leading-relaxed mb-6 max-w-xs">
               Empowering creators with professional image editing tools, right in the browser. 
@@ -57,7 +57,7 @@ export const Footer = () => {
 
         <div className="pt-8 border-t border-zinc-800 text-center">
           <p className="text-zinc-500 text-sm">
-            © {new Date().getFullYear()} PixelPerfect Inc. All rights reserved.
+            © {new Date().getFullYear()} resizzy Inc. All rights reserved.
           </p>
         </div>
       </div>
