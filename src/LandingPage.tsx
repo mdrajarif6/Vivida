@@ -30,9 +30,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
       {/* Header */}
       <header className={`w-full px-8 py-6 flex items-center justify-between z-20 absolute top-0 transition-all duration-1000 ${mounted ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'}`}>
         <div className="flex items-center gap-3 group cursor-pointer" onClick={onStart}>
-          <img src={logoImg} alt="Vivida Logo" className="w-10 h-10 rounded-xl shadow-lg shadow-violet-500/30 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 object-cover" />
-          <span className="text-2xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 group-hover:from-violet-400 group-hover:to-fuchsia-400 transition-all duration-500">
-            Vivida
+          <img src={logoImg} alt="resizzy Logo" className="w-10 h-10 rounded-xl shadow-lg shadow-violet-500/30 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 object-cover" />
+          <span className="text-2xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 group-hover:from-violet-400 group-hover:to-fuchsia-400 transition-all duration-500 lowercase">
+            resizzy
           </span>
         </div>
         
@@ -208,7 +208,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             <Heart className="w-4 h-4 text-pink-500" />
             Support Developer - Buy me a coffee
           </a>
-          <p className="text-xs text-slate-500 font-medium">© {new Date().getFullYear()} Vivida. All rights reserved.</p>
+          <p className="text-xs text-slate-500 font-medium">© {new Date().getFullYear()} resizzy. All rights reserved.</p>
         </div>
       </footer>
       

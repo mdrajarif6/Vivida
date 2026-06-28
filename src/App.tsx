@@ -2005,9 +2005,9 @@ export default function App() {
         {/* WORKSPACE HEADER BAR */}
         <header className="flex h-14 items-center justify-between border-b border-slate-800/80 bg-slate-900/60 px-6 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <img src={logoImg} alt="Vivida" className="w-7 h-7 rounded-lg shadow-lg shadow-violet-500/30 object-cover" />
-            <h1 className="text-base font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
-              Vivida
+            <img src={logoImg} alt="resizzy" className="w-7 h-7 rounded-lg shadow-lg shadow-violet-500/30 object-cover" />
+            <h1 className="text-base font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300 lowercase">
+              resizzy
             </h1>
             <span className="hidden md:inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
             <p className="hidden md:block text-xs text-slate-400 font-medium">Creative Suite</p>
