@@ -16,6 +16,7 @@ import ProModal from './components/ProModal';
 import ConnectWallet from './components/ConnectWallet';
 import AuthModal from './components/AuthModal';
 import DashboardModal from './components/DashboardModal';
+import logoImg from './assets/logo.png';
 import { useAuth } from './contexts/AuthContext';
 import { removeImageBackground } from './utils/aiFeatures';
 
@@ -2004,7 +2005,7 @@ export default function App() {
         {/* WORKSPACE HEADER BAR */}
         <header className="flex h-14 items-center justify-between border-b border-slate-800/80 bg-slate-900/60 px-6 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Vivida" className="w-7 h-7 rounded-lg shadow-lg shadow-violet-500/30 object-cover" />
+            <img src={logoImg} alt="Vivida" className="w-7 h-7 rounded-lg shadow-lg shadow-violet-500/30 object-cover" />
             <h1 className="text-base font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
               Vivida
             </h1>
