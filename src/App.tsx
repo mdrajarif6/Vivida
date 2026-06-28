@@ -4,7 +4,7 @@ import {
   Paintbrush, Type, Smile, Frame, History, RefreshCw, ZoomIn, 
   ZoomOut, Maximize2, Trash2, Check, X, FileImage, Palette, 
   ChevronRight, Bold, Italic, Image as ImageIcon, LayoutTemplate,
-  Wand2, User, Cloud
+  Wand2, User
 } from 'lucide-react';
 import { 
   ImageSettings, DrawingPath, TextLayer, StickerLayer, HistoryState, CropBox 
@@ -131,6 +131,22 @@ export default function App() {
   const [isAdobeProcessing, setIsAdobeProcessing] = useState(false);
   const [isMetaGenerating, setIsMetaGenerating] = useState(false);
   const [metaPrompt, setMetaPrompt] = useState('');
+  
+  // Free tier project tracking
+  const [projectsCount, setProjectsCount] = useState(0);
+
+  useEffect(() => {
+    const currentMonth = new Date().getMonth().toString();
+    const savedMonth = localStorage.getItem('resizzy_month');
+    if (savedMonth !== currentMonth) {
+      localStorage.setItem('resizzy_month', currentMonth);
+      localStorage.setItem('resizzy_projects_count', '0');
+      setProjectsCount(0);
+    } else {
+      const count = parseInt(localStorage.getItem('resizzy_projects_count') || '0', 10);
+      setProjectsCount(count);
+    }
+  }, []);
 
   // Main States
   const [hasStarted, setHasStarted] = useState(false);
@@ -340,6 +356,13 @@ export default function App() {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const ext = file.name.split('.').pop()?.toLowerCase();
+      if (!isPro && (ext === 'raw' || ext === 'dng' || ext === 'cr2')) {
+        setShowProModal(true);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = (event) => {
         if (event.target?.result) {
@@ -678,6 +701,13 @@ export default function App() {
       return;
     }
     
+    if (!isPro && projectsCount >= 5) {
+      setShowExportModal(false);
+      setShowProModal(true);
+      return;
+    }
+
+    
     setIsExporting(true);
 
     // Timeout to yield main thread for UI spinner
@@ -707,6 +737,12 @@ export default function App() {
         link.download = `resizzy_edit_${Date.now()}.${exportFormat}`;
         link.href = dataUrl;
         link.click();
+
+        if (!isPro) {
+          const newCount = projectsCount + 1;
+          setProjectsCount(newCount);
+          localStorage.setItem('resizzy_projects_count', newCount.toString());
+        }
 
         setShowExportModal(false);
       } catch (err) {
@@ -1087,15 +1123,19 @@ export default function App() {
                 <div className="flex items-center justify-between">
                   <label 
                     onDoubleClick={() => updateSetting('hueRotate', 0)}
-                    className="text-xs font-semibold text-slate-300 hover:text-violet-400 cursor-help"
+                    className="text-xs font-semibold text-slate-300 hover:text-violet-400 cursor-help flex items-center gap-1"
                   >
                     Hue Shift
+                    {!isPro && <span className="text-[8px] bg-amber-500/20 text-amber-400 px-1 py-0.5 rounded border border-amber-500/30 uppercase tracking-widest font-bold">PRO</span>}
                   </label>
                   <span className="text-xs text-slate-400 font-mono">{settings.hueRotate}°</span>
                 </div>
                 <input 
                   type="range" min="0" max="360" value={settings.hueRotate}
-                  onChange={(e) => updateSetting('hueRotate', parseInt(e.target.value))}
+                  onChange={(e) => {
+                    if (!isPro) { setShowProModal(true); return; }
+                    updateSetting('hueRotate', parseInt(e.target.value));
+                  }}
                   onMouseUp={() => handleSliderChangeEnd('Hue Shift')}
                   onTouchEnd={() => handleSliderChangeEnd('Hue Shift')}
                   className="w-full accent-violet-500 h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer"
@@ -1107,15 +1147,19 @@ export default function App() {
                 <div className="flex items-center justify-between">
                   <label 
                     onDoubleClick={() => updateSetting('blur', 0)}
-                    className="text-xs font-semibold text-slate-300 hover:text-violet-400 cursor-help"
+                    className="text-xs font-semibold text-slate-300 hover:text-violet-400 cursor-help flex items-center gap-1"
                   >
                     Gaussian Blur
+                    {!isPro && <span className="text-[8px] bg-amber-500/20 text-amber-400 px-1 py-0.5 rounded border border-amber-500/30 uppercase tracking-widest font-bold">PRO</span>}
                   </label>
                   <span className="text-xs text-slate-400 font-mono">{settings.blur}px</span>
                 </div>
                 <input 
                   type="range" min="0" max="20" step="0.5" value={settings.blur}
-                  onChange={(e) => updateSetting('blur', parseFloat(e.target.value))}
+                  onChange={(e) => {
+                    if (!isPro) { setShowProModal(true); return; }
+                    updateSetting('blur', parseFloat(e.target.value));
+                  }}
                   onMouseUp={() => handleSliderChangeEnd('Blur Adjustment')}
                   onTouchEnd={() => handleSliderChangeEnd('Blur Adjustment')}
                   className="w-full accent-violet-500 h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer"
@@ -1147,15 +1191,19 @@ export default function App() {
                 <div className="flex items-center justify-between">
                   <label 
                     onDoubleClick={() => updateSetting('sepia', 0)}
-                    className="text-xs font-semibold text-slate-300 hover:text-violet-400 cursor-help"
+                    className="text-xs font-semibold text-slate-300 hover:text-violet-400 cursor-help flex items-center gap-1"
                   >
                     Sepia Tone
+                    {!isPro && <span className="text-[8px] bg-amber-500/20 text-amber-400 px-1 py-0.5 rounded border border-amber-500/30 uppercase tracking-widest font-bold">PRO</span>}
                   </label>
                   <span className="text-xs text-slate-400 font-mono">{settings.sepia}%</span>
                 </div>
                 <input 
                   type="range" min="0" max="100" value={settings.sepia}
-                  onChange={(e) => updateSetting('sepia', parseInt(e.target.value))}
+                  onChange={(e) => {
+                    if (!isPro) { setShowProModal(true); return; }
+                    updateSetting('sepia', parseInt(e.target.value));
+                  }}
                   onMouseUp={() => handleSliderChangeEnd('Sepia Adjustment')}
                   onTouchEnd={() => handleSliderChangeEnd('Sepia Adjustment')}
                   className="w-full accent-violet-500 h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer"
@@ -1498,6 +1546,10 @@ export default function App() {
                 <button
                   onClick={async () => {
                     if (!originalImage || !imageSrc) return;
+                    if (!isPro) {
+                      setShowProModal(true);
+                      return;
+                    }
                     setIsAdobeProcessing(true);
                     try {
                       const response = await fetch('/resizzy/backend/api/remove_bg.php', {
@@ -1520,8 +1572,11 @@ export default function App() {
                   disabled={isAdobeProcessing}
                   className="w-full relative group overflow-hidden py-2 bg-slate-800 hover:bg-slate-700 border border-[#31a8ff]/30 rounded-xl transition-all flex items-center justify-center gap-2 mb-2"
                 >
-                  {isAdobeProcessing ? <RefreshCw className="h-4 w-4 text-[#31a8ff] animate-spin" /> : <Sparkles className="h-4 w-4 text-[#31a8ff]" />}
-                  <span className="text-xs font-bold text-white">Remove Background (Free)</span>
+                  <div className="flex items-center gap-2">
+                    {isAdobeProcessing ? <RefreshCw className="h-4 w-4 text-[#31a8ff] animate-spin" /> : <Sparkles className="h-4 w-4 text-[#31a8ff]" />}
+                    <span className="text-xs font-bold text-white">Remove Background</span>
+                  </div>
+                  {!isPro && <span className="absolute right-3 text-[9px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded border border-amber-500/30 uppercase tracking-widest font-bold">PRO</span>}
                 </button>
               </div>
             </div>
@@ -2229,13 +2284,29 @@ export default function App() {
 
             {/* Upgrade to Pro Button */}
             {!isPro && (
-              <button 
-                onClick={() => setShowProModal(true)}
-                className="py-1.5 px-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold text-xs rounded-xl shadow-lg shadow-orange-500/20 flex items-center gap-1.5 transition-all cursor-pointer mr-2"
-              >
-                <Sparkles className="h-3.5 w-3.5" />
-                Upgrade to PRO
-              </button>
+              <div className="flex items-center gap-3 mr-2">
+                <div className="flex flex-col items-end justify-center hidden md:flex">
+                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Free Exports</span>
+                  <div className="flex items-center gap-1.5">
+                    <div className="h-1.5 w-16 bg-slate-800 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full rounded-full ${projectsCount >= 5 ? 'bg-red-500' : 'bg-amber-500'}`} 
+                        style={{ width: `${Math.min(100, (projectsCount / 5) * 100)}%` }}
+                      />
+                    </div>
+                    <span className={`text-xs font-bold ${projectsCount >= 5 ? 'text-red-400' : 'text-amber-400'}`}>
+                      {projectsCount}/5
+                    </span>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setShowProModal(true)}
+                  className="py-1.5 px-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold text-xs rounded-xl shadow-lg shadow-orange-500/20 flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Upgrade to PRO
+                </button>
+              </div>
             )}
 
             {/* Connect Wallet */}
