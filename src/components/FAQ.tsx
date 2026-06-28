@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 const faqs = [
   {
-    question: "Do I need to download anything to use resizzy?",
+    question: "Do I need to install any software?",
     answer: "No, resizzy is a completely browser-based image editor. You can access all its features from any modern web browser without downloading anything.",
   },
   {
