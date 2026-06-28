@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://resizzy.com/sitemap.xml
