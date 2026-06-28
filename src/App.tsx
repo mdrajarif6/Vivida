@@ -817,13 +817,13 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setActiveTab('adobe')}
+              onClick={() => setActiveTab('removebg')}
               className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all group relative ${
-                activeTab === 'adobe' ? 'bg-[#ff3366] text-white shadow-lg shadow-[#ff3366]/30 scale-110 z-10' : 'text-slate-400 hover:text-[#ff3366] hover:bg-slate-800'
+                activeTab === 'removebg' ? 'bg-[#ff3366] text-white shadow-lg shadow-[#ff3366]/30 scale-110 z-10' : 'text-slate-400 hover:text-[#ff3366] hover:bg-slate-800'
               }`}
             >
-              <Cloud className="h-5 w-5" />
-              <span className="text-[9px] font-semibold opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity whitespace-nowrap text-[#ff3366]">Adobe APIs</span>
+              <Sparkles className="h-5 w-5" />
+              <span className="text-[9px] font-semibold opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity whitespace-nowrap text-[#ff3366]">Remove.bg</span>
             </button>
 
             <div className="w-8 h-[1px] bg-slate-800 my-1 rounded-full"></div>
@@ -1478,21 +1478,21 @@ export default function App() {
             </div>
           )}
 
-          {/* TAB 2.7: ADOBE APIs */}
-          {activeTab === 'adobe' && (
+          {/* TAB 2.7: REMOVE.BG API */}
+          {activeTab === 'removebg' && (
             <div className="space-y-4">
-              <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20 mb-2">
-                <p className="text-xs text-red-300 leading-relaxed font-medium">
-                  <strong>Mock Implementation:</strong> Adobe APIs require Developer Console API Keys (Client ID/Secret) which are currently missing. These buttons simulate a response.
+              <div className="p-3 bg-green-500/10 rounded-xl border border-green-500/20 mb-2">
+                <p className="text-xs text-green-300 leading-relaxed font-medium">
+                  <strong>Remove.bg API:</strong> Remove image backgrounds automatically using the Remove.bg API. You must configure your free API Key in <code>backend/api/remove_bg.php</code> for this to work.
                 </p>
               </div>
 
               <div className="p-4 bg-gradient-to-br from-[#001e36]/80 to-slate-900 rounded-xl border border-[#31a8ff]/30 shadow-[0_4px_15px_rgba(49,168,255,0.1)]">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-8 w-8 rounded-lg bg-[#001e36] flex items-center justify-center border border-[#31a8ff]">
-                    <span className="text-[#31a8ff] font-bold text-xs">Ps</span>
+                    <Sparkles className="text-[#31a8ff] h-4 w-4" />
                   </div>
-                  <h3 className="text-sm font-bold text-white">Photoshop API</h3>
+                  <h3 className="text-sm font-bold text-white">Remove Background</h3>
                 </div>
                 
                 <button
@@ -1500,19 +1500,20 @@ export default function App() {
                     if (!originalImage || !imageSrc) return;
                     setIsAdobeProcessing(true);
                     try {
-                      const response = await fetch('/resizzy/backend/api/adobe_photoshop.php', {
+                      const response = await fetch('/resizzy/backend/api/remove_bg.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ image: imageSrc, action: 'remove_bg' })
+                        body: JSON.stringify({ image: imageSrc })
                       });
                       const data = await response.json();
                       if (data.success) {
-                        alert(data.message);
+                        setImageSrc(data.url);
+                        commitState('Remove Background', settings, [], [], []);
                       } else {
                         alert('Error: ' + data.error);
                       }
                     } catch (err) {
-                      alert('Photoshop API connection failed');
+                      alert('Remove.bg API connection failed');
                     }
                     setIsAdobeProcessing(false);
                   }}
@@ -1520,44 +1521,7 @@ export default function App() {
                   className="w-full relative group overflow-hidden py-2 bg-slate-800 hover:bg-slate-700 border border-[#31a8ff]/30 rounded-xl transition-all flex items-center justify-center gap-2 mb-2"
                 >
                   {isAdobeProcessing ? <RefreshCw className="h-4 w-4 text-[#31a8ff] animate-spin" /> : <Sparkles className="h-4 w-4 text-[#31a8ff]" />}
-                  <span className="text-xs font-bold text-white">Remove Background</span>
-                </button>
-              </div>
-
-              <div className="p-4 bg-gradient-to-br from-[#001e36]/80 to-slate-900 rounded-xl border border-[#31a8ff]/30 shadow-[0_4px_15px_rgba(49,168,255,0.1)]">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="h-8 w-8 rounded-lg bg-[#001e36] flex items-center justify-center border border-[#31a8ff]">
-                    <span className="text-[#31a8ff] font-bold text-xs">Lr</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-white">Lightroom API</h3>
-                </div>
-                
-                <button
-                  onClick={async () => {
-                    if (!originalImage || !imageSrc) return;
-                    setIsAdobeProcessing(true);
-                    try {
-                      const response = await fetch('/resizzy/backend/api/adobe_lightroom.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ image: imageSrc, action: 'auto_tone' })
-                      });
-                      const data = await response.json();
-                      if (data.success) {
-                        alert(data.message);
-                      } else {
-                        alert('Error: ' + data.error);
-                      }
-                    } catch (err) {
-                      alert('Lightroom API connection failed');
-                    }
-                    setIsAdobeProcessing(false);
-                  }}
-                  disabled={isAdobeProcessing}
-                  className="w-full relative group overflow-hidden py-2 bg-slate-800 hover:bg-slate-700 border border-[#31a8ff]/30 rounded-xl transition-all flex items-center justify-center gap-2"
-                >
-                  {isAdobeProcessing ? <RefreshCw className="h-4 w-4 text-[#31a8ff] animate-spin" /> : <Sparkles className="h-4 w-4 text-[#31a8ff]" />}
-                  <span className="text-xs font-bold text-white">Auto-Tone Image</span>
+                  <span className="text-xs font-bold text-white">Remove Background (Free)</span>
                 </button>
               </div>
             </div>
