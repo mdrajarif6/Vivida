@@ -190,6 +190,102 @@ export default function LandingPage({ onStart }: LandingPageProps) {
 
         </div>
 
+        {/* Integrations Section */}
+        <div className={`mt-32 max-w-6xl mx-auto px-6 w-full transition-all duration-1000 delay-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-100 mb-4">Extensible Creative Cloud products and services</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+              Many Creative Cloud apps and services are extensible through APIs, SDKs, and Events. Choose your favorite to get started.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Card 1: Photoshop */}
+            <div className="flex flex-col h-full p-8 rounded-2xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/60 hover:border-blue-500/50 group">
+              <div className="h-12 w-12 rounded-xl bg-[#001e36] flex items-center justify-center border-2 border-[#31a8ff] shadow-[0_0_15px_rgba(49,168,255,0.3)] mb-6">
+                <span className="text-[#31a8ff] font-bold text-xl">Ps</span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-100 mb-3">Photoshop</h3>
+              <p className="text-sm text-slate-400 mb-8 flex-grow">
+                With Photoshop APIs and SDKs, build plugins and integrations that harness the power of the world's best image editing software to transform creative workflows.
+              </p>
+              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-blue-500/50">
+                Learn more
+              </button>
+            </div>
+
+            {/* Card 2: InDesign */}
+            <div className="flex flex-col h-full p-8 rounded-2xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/60 hover:border-pink-500/50 group">
+              <div className="h-12 w-12 rounded-xl bg-[#2a0014] flex items-center justify-center border-2 border-[#ff3366] shadow-[0_0_15px_rgba(255,51,102,0.3)] mb-6">
+                <span className="text-[#ff3366] font-bold text-xl">Id</span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-100 mb-3">InDesign</h3>
+              <p className="text-sm text-slate-400 mb-8 flex-grow">
+                Give your InDesign users the power to streamline their editorial and publishing workflows.
+              </p>
+              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-pink-500/50">
+                Learn more
+              </button>
+            </div>
+
+            {/* Card 3: Premiere Pro */}
+            <div className="flex flex-col h-full p-8 rounded-2xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/60 hover:border-purple-500/50 group">
+              <div className="h-12 w-12 rounded-xl bg-[#000033] flex items-center justify-center border-2 border-[#9999ff] shadow-[0_0_15px_rgba(153,153,255,0.3)] mb-6">
+                <span className="text-[#9999ff] font-bold text-xl">Pr</span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-100 mb-3">Premiere Pro</h3>
+              <p className="text-sm text-slate-400 mb-8 flex-grow">
+                Automate complex tasks, communicate with external hardware, add support for new codecs, and more.
+              </p>
+              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-purple-500/50">
+                Learn more
+              </button>
+            </div>
+
+            {/* Card 4: Lightroom Services */}
+            <div className="flex flex-col h-full p-8 rounded-2xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/60 hover:border-cyan-500/50 group">
+              <div className="h-12 w-12 rounded-xl bg-[#001e36] flex items-center justify-center border-2 border-[#31a8ff] shadow-[0_0_15px_rgba(49,168,255,0.3)] mb-6">
+                <span className="text-[#31a8ff] font-bold text-xl">Lr</span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-100 mb-3">Lightroom Services</h3>
+              <p className="text-sm text-slate-400 mb-8 flex-grow">
+                Streamline photography workflows for customers with content in Lightroom, through RESTful APIs.
+              </p>
+              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-cyan-500/50">
+                Learn more
+              </button>
+            </div>
+
+            {/* Card 5: Lightroom Classic */}
+            <div className="flex flex-col h-full p-8 rounded-2xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/60 hover:border-cyan-500/50 group">
+              <div className="h-12 w-12 rounded-xl bg-[#001e36] flex items-center justify-center border-2 border-[#31a8ff] shadow-[0_0_15px_rgba(49,168,255,0.3)] mb-6">
+                <span className="text-[#31a8ff] font-bold text-xl">LrC</span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-100 mb-3">Lightroom Classic</h3>
+              <p className="text-sm text-slate-400 mb-8 flex-grow">
+                Create effects, define presets and brushes, manipulate metadata, and much more in Lightroom.
+              </p>
+              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-cyan-500/50">
+                Learn more
+              </button>
+            </div>
+
+            {/* Card 6: After Effects */}
+            <div className="flex flex-col h-full p-8 rounded-2xl bg-slate-900/40 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/60 hover:border-indigo-500/50 group">
+              <div className="h-12 w-12 rounded-xl bg-[#000033] flex items-center justify-center border-2 border-[#9999ff] shadow-[0_0_15px_rgba(153,153,255,0.3)] mb-6">
+                <span className="text-[#9999ff] font-bold text-xl">Ae</span>
+              </div>
+              <h3 className="text-xl font-bold text-slate-100 mb-3">After Effects</h3>
+              <p className="text-sm text-slate-400 mb-8 flex-grow">
+                Create stunning visual effects, manipulate project elements, and automate complex tasks in After Effects.
+              </p>
+              <button className="w-fit px-6 py-2 rounded-full border border-slate-600 text-slate-300 font-medium text-sm transition-all hover:bg-slate-700 hover:text-white group-hover:border-indigo-500/50">
+                Learn more
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* Ad Placement */}
         <div className={`w-full mt-24 max-w-4xl mx-auto transition-all duration-1000 delay-700 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
           <AdBanner className="w-full h-[90px] rounded-2xl overflow-hidden shadow-2xl" adSlot="landing-page-top" />
