@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Sparkles, Palette, Scissors, Download, ChevronRight, Heart, Zap, Layers, Image as ImageIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Palette, Scissors, Download, ChevronRight, Heart, Zap, Layers, Image as ImageIcon } from 'lucide-react';
 import logoImg from './assets/logo.png';
 import AdBanner from './components/AdBanner';
 
