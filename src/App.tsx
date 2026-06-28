@@ -4,7 +4,7 @@ import {
   Paintbrush, Type, Smile, Frame, History, RefreshCw, ZoomIn, 
   ZoomOut, Maximize2, Trash2, Check, X, FileImage, Palette, 
   ChevronRight, Bold, Italic, Image as ImageIcon, LayoutTemplate,
-  Wand2, User
+  Wand2, User, Cloud
 } from 'lucide-react';
 import { 
   ImageSettings, DrawingPath, TextLayer, StickerLayer, HistoryState, CropBox 
@@ -128,6 +128,7 @@ export default function App() {
 
   // AI States
   const [isAiProcessing, setIsAiProcessing] = useState(false);
+  const [isAdobeProcessing, setIsAdobeProcessing] = useState(false);
   const [isMetaGenerating, setIsMetaGenerating] = useState(false);
   const [metaPrompt, setMetaPrompt] = useState('');
 
@@ -815,6 +816,16 @@ export default function App() {
               <span className="text-[9px] font-semibold opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity whitespace-nowrap">Meta Gen</span>
             </button>
 
+            <button
+              onClick={() => setActiveTab('adobe')}
+              className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all group relative ${
+                activeTab === 'adobe' ? 'bg-[#ff3366] text-white shadow-lg shadow-[#ff3366]/30 scale-110 z-10' : 'text-slate-400 hover:text-[#ff3366] hover:bg-slate-800'
+              }`}
+            >
+              <Cloud className="h-5 w-5" />
+              <span className="text-[9px] font-semibold opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity whitespace-nowrap text-[#ff3366]">Adobe APIs</span>
+            </button>
+
             <div className="w-8 h-[1px] bg-slate-800 my-1 rounded-full"></div>
             {[
               { id: 'templates', icon: LayoutTemplate, label: 'Templates' },
@@ -1462,6 +1473,91 @@ export default function App() {
                   className="w-full mt-3 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2"
                 >
                   {isMetaGenerating ? <RefreshCw className="animate-spin h-4 w-4" /> : 'Generate'}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2.7: ADOBE APIs */}
+          {activeTab === 'adobe' && (
+            <div className="space-y-4">
+              <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20 mb-2">
+                <p className="text-xs text-red-300 leading-relaxed font-medium">
+                  <strong>Mock Implementation:</strong> Adobe APIs require Developer Console API Keys (Client ID/Secret) which are currently missing. These buttons simulate a response.
+                </p>
+              </div>
+
+              <div className="p-4 bg-gradient-to-br from-[#001e36]/80 to-slate-900 rounded-xl border border-[#31a8ff]/30 shadow-[0_4px_15px_rgba(49,168,255,0.1)]">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-8 w-8 rounded-lg bg-[#001e36] flex items-center justify-center border border-[#31a8ff]">
+                    <span className="text-[#31a8ff] font-bold text-xs">Ps</span>
+                  </div>
+                  <h3 className="text-sm font-bold text-white">Photoshop API</h3>
+                </div>
+                
+                <button
+                  onClick={async () => {
+                    if (!originalImage || !imageSrc) return;
+                    setIsAdobeProcessing(true);
+                    try {
+                      const response = await fetch('/resizzy/backend/api/adobe_photoshop.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ image: imageSrc, action: 'remove_bg' })
+                      });
+                      const data = await response.json();
+                      if (data.success) {
+                        alert(data.message);
+                      } else {
+                        alert('Error: ' + data.error);
+                      }
+                    } catch (err) {
+                      alert('Photoshop API connection failed');
+                    }
+                    setIsAdobeProcessing(false);
+                  }}
+                  disabled={isAdobeProcessing}
+                  className="w-full relative group overflow-hidden py-2 bg-slate-800 hover:bg-slate-700 border border-[#31a8ff]/30 rounded-xl transition-all flex items-center justify-center gap-2 mb-2"
+                >
+                  {isAdobeProcessing ? <RefreshCw className="h-4 w-4 text-[#31a8ff] animate-spin" /> : <Sparkles className="h-4 w-4 text-[#31a8ff]" />}
+                  <span className="text-xs font-bold text-white">Remove Background</span>
+                </button>
+              </div>
+
+              <div className="p-4 bg-gradient-to-br from-[#001e36]/80 to-slate-900 rounded-xl border border-[#31a8ff]/30 shadow-[0_4px_15px_rgba(49,168,255,0.1)]">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-8 w-8 rounded-lg bg-[#001e36] flex items-center justify-center border border-[#31a8ff]">
+                    <span className="text-[#31a8ff] font-bold text-xs">Lr</span>
+                  </div>
+                  <h3 className="text-sm font-bold text-white">Lightroom API</h3>
+                </div>
+                
+                <button
+                  onClick={async () => {
+                    if (!originalImage || !imageSrc) return;
+                    setIsAdobeProcessing(true);
+                    try {
+                      const response = await fetch('/resizzy/backend/api/adobe_lightroom.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ image: imageSrc, action: 'auto_tone' })
+                      });
+                      const data = await response.json();
+                      if (data.success) {
+                        alert(data.message);
+                      } else {
+                        alert('Error: ' + data.error);
+                      }
+                    } catch (err) {
+                      alert('Lightroom API connection failed');
+                    }
+                    setIsAdobeProcessing(false);
+                  }}
+                  disabled={isAdobeProcessing}
+                  className="w-full relative group overflow-hidden py-2 bg-slate-800 hover:bg-slate-700 border border-[#31a8ff]/30 rounded-xl transition-all flex items-center justify-center gap-2"
+                >
+                  {isAdobeProcessing ? <RefreshCw className="h-4 w-4 text-[#31a8ff] animate-spin" /> : <Sparkles className="h-4 w-4 text-[#31a8ff]" />}
+                  <span className="text-xs font-bold text-white">Auto-Tone Image</span>
                 </button>
               </div>
             </div>
