@@ -3,7 +3,8 @@ import {
   Upload, Undo2, Redo2, RotateCcw, Download, Sparkles, Sliders, Crop, 
   Paintbrush, Type, Smile, Frame, History, RefreshCw, ZoomIn, 
   ZoomOut, Maximize2, Trash2, Check, X, FileImage, Palette, 
-  ChevronRight, Bold, Italic, Image as ImageIcon, LayoutTemplate
+  ChevronRight, Bold, Italic, Image as ImageIcon, LayoutTemplate,
+  Wand2, User
 } from 'lucide-react';
 import { 
   ImageSettings, DrawingPath, TextLayer, StickerLayer, HistoryState, CropBox 
@@ -2185,7 +2186,7 @@ export default function App() {
             {/* Connect Wallet */}
             <ConnectWallet 
               walletAddress={walletAddress}
-              onConnect={(address, token, proStatus) => {
+              onConnect={(address, token, _proStatus) => {
                 setWalletAddress(address);
                 setSessionToken(token);
               }}
@@ -2628,7 +2629,7 @@ export default function App() {
       )}
 
       {/* Modals */}
-      {showProModal && <ProModal onClose={() => setShowProModal(false)} onUpgrade={() => {}} />}
+      {showProModal && <ProModal isOpen={true} onClose={() => setShowProModal(false)} onUnlockPro={() => {}} walletAddress={walletAddress} sessionToken={sessionToken} />}
       
       {showAuthModal && (
         <AuthModal 
