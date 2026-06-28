@@ -1259,10 +1259,6 @@ export default function App() {
 
                   <button
                     onClick={async () => {
-                      if (!isPro) {
-                        setShowProModal(true);
-                        return;
-                      }
                       if (!originalImage || !imageSrc) return;
                       try {
                         setIsAiProcessing(true);
@@ -1289,7 +1285,7 @@ export default function App() {
                     className="w-full relative group overflow-hidden py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 border border-blue-400/30 rounded-xl transition-all flex flex-col items-center justify-center gap-1 shadow-lg shadow-blue-900/20"
                   >
                     {isAiProcessing ? <RefreshCw className="h-4 w-4 text-white animate-spin" /> : <Wand2 className="h-4 w-4 text-white" />}
-                    <span className="text-[10px] font-bold text-white relative z-10">Meta SAM (Pro)</span>
+                    <span className="text-[10px] font-bold text-white relative z-10">Meta SAM (Free)</span>
                   </button>
 
                   <button
@@ -1434,7 +1430,7 @@ export default function App() {
           {activeTab === 'meta-ai' && (
             <div className="space-y-4">
               <div className="p-4 bg-gradient-to-br from-blue-900/40 to-indigo-900/40 rounded-xl border border-blue-500/30">
-                <h3 className="text-sm font-bold text-white mb-2">Text-to-Image Generation</h3>
+                <h3 className="text-sm font-bold text-white mb-2">Text-to-Image Generation (Free)</h3>
                 <textarea
                   value={metaPrompt}
                   onChange={(e) => setMetaPrompt(e.target.value)}
@@ -1444,7 +1440,6 @@ export default function App() {
                 <button
                   onClick={async () => {
                     if (!metaPrompt.trim()) return;
-                    if (!isPro) { setShowProModal(true); return; }
                     setIsMetaGenerating(true);
                     try {
                       const newSrc = await generateMetaImage(metaPrompt);
