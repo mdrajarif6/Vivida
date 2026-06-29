@@ -29,14 +29,17 @@ define('IMGBB_API_KEY', 'eca0f70b0aeac6e6c8070b9d76e65441');
 define('OAUTH_REDIRECT_BASE', 'https://resizzy.com/backend/api/oauth.php');
 
 // Google OAuth
+// Get API Keys from: https://console.cloud.google.com/apis/credentials
 define('GOOGLE_CLIENT_ID', 'YOUR_GOOGLE_CLIENT_ID');
 define('GOOGLE_CLIENT_SECRET', 'YOUR_GOOGLE_CLIENT_SECRET');
 
 // GitHub OAuth
+// Get API Keys from: https://github.com/settings/developers
 define('GITHUB_CLIENT_ID', 'YOUR_GITHUB_CLIENT_ID');
 define('GITHUB_CLIENT_SECRET', 'YOUR_GITHUB_CLIENT_SECRET');
 
 // Facebook OAuth
+// Get API Keys from: https://developers.facebook.com/apps/
 define('FACEBOOK_APP_ID', 'YOUR_FACEBOOK_APP_ID');
 define('FACEBOOK_APP_SECRET', 'YOUR_FACEBOOK_APP_SECRET');
 
