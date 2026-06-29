@@ -2350,15 +2350,14 @@ export default function App() {
           className="flex-1 overflow-auto bg-checkerboard flex p-8 select-none"
         >
           {imageSrc ? (
-            /* Layout Wrapper (takes physical space scaled by zoom) */
             <div 
-              className="relative m-auto"
+              className="relative m-auto overflow-hidden shadow-2xl"
               style={{
                 width: `${displayDimensions.width * (zoom / 100)}px`,
                 height: `${displayDimensions.height * (zoom / 100)}px`,
               }}
             >
-              /* Canvas Zoom/Scale Wrapper Frame */
+              {/* Canvas Zoom/Scale Wrapper Frame */}
               <div 
                 className="absolute top-0 left-0 origin-top-left transition-transform duration-100 ease-out"
                 style={{ 
@@ -2368,7 +2367,7 @@ export default function App() {
                 {/* Main editing Canvas */}
               <canvas
                 ref={canvasRef}
-                className="shadow-2xl select-none relative z-10"
+                className="select-none relative z-10"
                 style={{ 
                   maxWidth: 'none', 
                   maxHeight: 'none',
