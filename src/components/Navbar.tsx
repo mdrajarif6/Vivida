@@ -14,9 +14,7 @@ export const Navbar = ({ onStart, onHome }: NavbarProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <button onClick={onHome} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div className="bg-indigo-600 p-1.5 rounded-lg">
-              <ImageIcon className="w-6 h-6 text-white" />
-            </div>
+            <img src="/favicon.png" alt="Resizzy Logo" className="w-8 h-8 object-contain" />
             <span className="text-xl font-bold text-white tracking-tight">resizzy</span>
           </button>
           

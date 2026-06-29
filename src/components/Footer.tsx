@@ -11,9 +11,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-6">
-              <div className="bg-indigo-600 p-1.5 rounded-lg">
-                <ImageIcon className="w-6 h-6 text-white" />
-              </div>
+              <img src="/favicon.png" alt="Resizzy Logo" className="w-8 h-8 object-contain" />
               <span className="text-xl font-bold text-white tracking-tight">resizzy</span>
             </div>
             <p className="text-zinc-400 text-sm leading-relaxed mb-6 max-w-xs">
