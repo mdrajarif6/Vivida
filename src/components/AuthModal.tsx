@@ -147,7 +147,8 @@ export default function AuthModal({ onClose, initialMode = 'login' }: AuthModalP
           
           <div className="grid grid-cols-3 gap-3">
             <button 
-              onClick={() => alert("Google login requires OAuth configuration.")}
+              type="button"
+              onClick={() => window.location.href = '/backend/api/oauth.php?provider=google'}
               className="flex justify-center items-center py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-colors group"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -158,7 +159,8 @@ export default function AuthModal({ onClose, initialMode = 'login' }: AuthModalP
               </svg>
             </button>
             <button 
-              onClick={() => alert("GitHub login requires OAuth configuration.")}
+              type="button"
+              onClick={() => window.location.href = '/backend/api/oauth.php?provider=github'}
               className="flex justify-center items-center py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-colors group"
             >
               <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -166,7 +168,8 @@ export default function AuthModal({ onClose, initialMode = 'login' }: AuthModalP
               </svg>
             </button>
             <button 
-              onClick={() => alert("Facebook login requires OAuth configuration.")}
+              type="button"
+              onClick={() => window.location.href = '/backend/api/oauth.php?provider=facebook'}
               className="flex justify-center items-center py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-colors group"
             >
               <svg className="w-5 h-5 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">

@@ -21,4 +21,23 @@ define('FAL_AI_API_KEY', '29371114-272d-4228-8703-00560b3acf8b:8d174dd70540700ab
 // Get a free key from: https://api.imgbb.com/
 define('IMGBB_API_KEY', 'eca0f70b0aeac6e6c8070b9d76e65441');
 
+// ----------------------------------------------------
+// OAUTH CONFIGURATIONS (Social Login)
+// ----------------------------------------------------
+
+// Base URL for OAuth redirects (Make sure to change this to your actual live domain)
+define('OAUTH_REDIRECT_BASE', 'https://resizzy.com/backend/api/oauth.php');
+
+// Google OAuth
+define('GOOGLE_CLIENT_ID', 'YOUR_GOOGLE_CLIENT_ID');
+define('GOOGLE_CLIENT_SECRET', 'YOUR_GOOGLE_CLIENT_SECRET');
+
+// GitHub OAuth
+define('GITHUB_CLIENT_ID', 'YOUR_GITHUB_CLIENT_ID');
+define('GITHUB_CLIENT_SECRET', 'YOUR_GITHUB_CLIENT_SECRET');
+
+// Facebook OAuth
+define('FACEBOOK_APP_ID', 'YOUR_FACEBOOK_APP_ID');
+define('FACEBOOK_APP_SECRET', 'YOUR_FACEBOOK_APP_SECRET');
+
 ?>
