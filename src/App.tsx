@@ -2350,15 +2350,22 @@ export default function App() {
           className="flex-1 overflow-auto bg-checkerboard flex p-8 select-none"
         >
           {imageSrc ? (
-            /* Canvas Zoom/Scale Wrapper Frame */
+            /* Layout Wrapper (takes physical space scaled by zoom) */
             <div 
-              className="relative m-auto transition-transform duration-100 ease-out"
-              style={{ 
-                transform: `scale(${zoom / 100})`, 
-                transformOrigin: 'center center',
+              className="relative m-auto"
+              style={{
+                width: `${displayDimensions.width * (zoom / 100)}px`,
+                height: `${displayDimensions.height * (zoom / 100)}px`,
               }}
             >
-              {/* Main editing Canvas */}
+              /* Canvas Zoom/Scale Wrapper Frame */
+              <div 
+                className="absolute top-0 left-0 origin-top-left transition-transform duration-100 ease-out"
+                style={{ 
+                  transform: `scale(${zoom / 100})`, 
+                }}
+              >
+                {/* Main editing Canvas */}
               <canvas
                 ref={canvasRef}
                 className="shadow-2xl select-none relative z-10"
@@ -2469,6 +2476,7 @@ export default function App() {
                   </div>
                 );
               })}
+              </div>
             </div>
           ) : (
             /* EMPTY WORKSPACE: FILE DROP ZONE & TEMPLATES */
