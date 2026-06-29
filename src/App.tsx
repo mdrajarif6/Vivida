@@ -805,7 +805,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black font-sans text-slate-100 antialiased p-4 gap-4">
+    <div className="flex flex-col-reverse md:flex-row h-[100dvh] w-screen overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black font-sans text-slate-100 antialiased p-2 md:p-4 gap-2 md:gap-4">
       
       {/* Hidden File Input for image importing */}
       <input 
@@ -816,11 +816,11 @@ export default function App() {
         className="hidden" 
       />
 
-      {/* LEFT NAVIGATION BAR */}
-      <aside className="z-20 flex w-20 flex-col items-center justify-between rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur-2xl py-6 shadow-2xl shadow-black/50">
-        <div className="flex flex-col items-center gap-6">
+      {/* NAVIGATION BAR (Left on Desktop, Bottom on Mobile) */}
+      <aside className="z-50 flex w-full md:w-20 flex-row md:flex-col items-center justify-between rounded-2xl md:rounded-3xl border border-white/10 bg-slate-900/80 md:bg-slate-900/60 backdrop-blur-2xl py-2 md:py-6 px-4 md:px-0 shadow-2xl shadow-black/50 overflow-x-auto md:overflow-visible shrink-0 md:h-auto gap-4 md:gap-0 scrollbar-hide">
+        <div className="flex flex-row md:flex-col items-center gap-4 md:gap-6 shrink-0">
           {/* Logo */}
-          <div className="group relative flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30 transition-all hover:scale-110">
+          <div className="group relative hidden md:flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-500 shadow-lg shadow-violet-500/30 transition-all hover:scale-110">
             <Sparkles className="h-5 w-5 text-white animate-pulse" />
             <span className="absolute left-16 top-2.5 z-50 scale-0 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white shadow-xl transition-all group-hover:scale-100 whitespace-nowrap">
               resizzy v1.0
@@ -828,10 +828,10 @@ export default function App() {
           </div>
 
           {/* Spacer Line */}
-          <div className="h-px w-8 bg-slate-800" />
+          <div className="h-8 md:h-px w-px md:w-8 bg-slate-800 hidden md:block" />
 
           {/* Tool Icons */}
-          <nav className="flex flex-col gap-2.5">
+          <nav className="flex flex-row md:flex-col gap-2 md:gap-2.5 items-center shrink-0">
             <button
               onClick={() => setActiveTab('ai')}
               className={`w-12 h-12 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all group relative ${
@@ -862,7 +862,7 @@ export default function App() {
               <span className="text-[9px] font-semibold opacity-0 group-hover:opacity-100 absolute -bottom-5 transition-opacity whitespace-nowrap text-[#ff3366]">Remove.bg</span>
             </button>
 
-            <div className="w-8 h-[1px] bg-slate-800 my-1 rounded-full"></div>
+            <div className="w-[1px] md:w-8 h-8 md:h-[1px] bg-slate-800 mx-1 md:mx-0 md:my-1 rounded-full shrink-0"></div>
             {[
               { id: 'templates', icon: LayoutTemplate, label: 'Templates' },
               { id: 'adjust', icon: Sliders, label: 'Adjust' },
@@ -902,8 +902,8 @@ export default function App() {
           </nav>
         </div>
 
-        {/* Bottom Actions */}
-        <div className="flex flex-col items-center gap-3">
+        {/* Actions (Right on Mobile, Bottom on Desktop) */}
+        <div className="flex flex-row md:flex-col items-center gap-3 ml-auto md:ml-0 shrink-0">
           <button
             onClick={triggerUpload}
             className="group relative flex h-11 w-11 items-center justify-center rounded-xl bg-slate-800/80 text-slate-300 hover:bg-gradient-to-br hover:from-violet-600 hover:to-fuchsia-600 hover:text-white transition-all duration-300 shadow-md hover:shadow-violet-500/30 hover:scale-110"
@@ -916,8 +916,8 @@ export default function App() {
         </div>
       </aside>
 
-      {/* LEFT SUB-BAR (ACTIVE TOOL SETTINGS PANEL) */}
-      <aside className="z-10 flex w-80 flex-col rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur-2xl py-5 shadow-2xl shadow-black/50">
+      {/* ACTIVE TOOL SETTINGS PANEL (Above canvas on mobile, left on desktop) */}
+      <aside className="z-40 flex w-full md:w-80 h-64 md:h-auto shrink-0 flex-col rounded-2xl md:rounded-3xl border border-white/10 bg-slate-900/95 md:bg-slate-900/60 backdrop-blur-3xl md:backdrop-blur-2xl py-4 md:py-5 shadow-2xl shadow-black/50 overflow-hidden relative">
         <div className="flex items-center justify-between px-5 pb-4 border-b border-white/10">
           <h2 className="text-base font-semibold capitalize tracking-wide text-white flex items-center gap-2">
             {activeTab === 'templates' && <LayoutTemplate className="h-4.5 w-4.5 text-violet-500" />}
@@ -2213,7 +2213,7 @@ export default function App() {
       </aside>
 
       {/* CENTER WORKSPACE SECTION */}
-      <main className="flex-1 flex flex-col bg-slate-950 relative overflow-hidden">
+      <main className="flex-1 min-w-0 min-h-0 flex flex-col bg-slate-950 relative overflow-hidden rounded-2xl md:rounded-3xl shadow-xl shadow-black/40 border border-slate-800/60">
         
         {/* WORKSPACE HEADER BAR */}
         <header className="flex h-14 items-center justify-between border-b border-slate-800/80 bg-slate-900/60 px-6 backdrop-blur-md">
