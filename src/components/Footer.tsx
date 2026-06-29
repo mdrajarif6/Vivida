@@ -1,4 +1,4 @@
-import { Image as ImageIcon, Share2, MessageCircle, Globe, Link as LinkIcon } from 'lucide-react';
+import { Share2, MessageCircle, Globe, Link as LinkIcon } from 'lucide-react';
 
 interface FooterProps {
   onNavigate?: (pageId: string) => void;
